@@ -27,16 +27,30 @@ canvas{display:block}
   box-shadow:0 0 10px rgba(255,255,255,0.1) inset;
   -webkit-tap-highlight-color:transparent;
 }
+
+.text{
+  position:fixed;
+  left:50%;
+  top:65%;
+  transform:translateX(-50%);
+  color:#FF4F4F;
+  font-size:22px;
+  font-family:Arial, sans-serif;
+  opacity:0;
+  transition:opacity 0.5s ease;
+}
 </style>
 </head>
 <body>
 
 <canvas id="c"></canvas>
 <div class="circle" id="btn"></div>
+<p class="text" id="loveText">For my Raymond</p>
 
 <script>
 const c=document.getElementById("c");
 const ctx=c.getContext("2d");
+const loveText=document.getElementById("loveText");
 let w,h;
 
 function resize(){
@@ -112,11 +126,23 @@ function draw(){
 draw();
 
 const btn=document.getElementById("btn");
-btn.addEventListener("mouseenter",()=>{forming=true;setHeart();});
-btn.addEventListener("mouseleave",()=>forming=false);
+btn.addEventListener("mouseenter",()=>{
+  forming=true;
+  setHeart();
+  loveText.style.opacity=1;
+});
+btn.addEventListener("mouseleave",()=>{
+  forming=false;
+  loveText.style.opacity=0;
+});
 btn.addEventListener("touchstart",()=>{
   forming=!forming;
-  if(forming)setHeart();
+  if(forming){
+    setHeart();
+    loveText.style.opacity=1;
+  }else{
+    loveText.style.opacity=0;
+  }
 });
 </script>
 
